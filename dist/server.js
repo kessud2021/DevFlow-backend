@@ -1452,23 +1452,7 @@ var app = (0, import_fastify.default)({ logger: true });
 // Dummy secret (HMAC HS256)
 var SECRET = new TextEncoder().encode("supersecret");
 
-// ===== Auth Routes =====
-async function authRoutes(app2) {
-  // LOGIN - issue JWT
-  app2.post("/login", async (req, reply) => {
-    // Dummy user, replace with real validation
-    var user = { id: "123", name: "Test User" };
 
-    var jwt = await new jose.SignJWT({ sub: user.id, name: user.name })
-      .setProtectedHeader({ alg: "HS256" })
-      .setIssuedAt()
-      .setIssuer("my-app")
-      .setAudience("my-app-users")
-      .setExpirationTime("1h")
-      .sign(SECRET);
-
-    return { ok: true, token: jwt };
-  });
 
   // VERIFY - check JWT
   app2.post("/verify", async (req, reply) => {
