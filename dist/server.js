@@ -1477,7 +1477,7 @@ var SECRET = new TextEncoder().encode("supersecret");
   app2.post("/logout", async () => {
     return { ok: true, message: "Logged out" };
   });
-}
+
 
 // ===== Register Routes =====
 authRoutes(app);
