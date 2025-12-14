@@ -18,7 +18,7 @@
   },
   "scripts": {
     "build": "node build.js",
-    "start": "node dist/server.cjs",
+    "start": "node dist/server.js",
     "dev": "ts-node backend/src/index.ts"
   }
 }
