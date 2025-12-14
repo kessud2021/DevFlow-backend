@@ -1,5 +1,6 @@
 {
-  "type": "module";
+  "type": "module",
+
   "dependencies": {
     "@fastify/websocket": "^11.2.0",
     "@prisma/client": "^6.19.1",
