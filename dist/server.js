@@ -1411,6 +1411,32 @@ async function registerRoutes(app2) {
   });
 }
 
+// Auto-register all route modules
+async function autoRegisterAllRoutes(app) {
+  const fs = require("fs");
+  const path = require("path");
+  const modulesDir = path.join(__dirname, "modules");
+
+  const dirs = fs.readdirSync(modulesDir, { withFileTypes: true });
+
+  for (const dir of dirs) {
+    if (dir.isDirectory()) {
+      const files = fs.readdirSync(path.join(modulesDir, dir.name));
+      for (const file of files) {
+        if (file.endsWith(".routes.js") || file.endsWith(".routes.ts")) {
+          const route = require(path.join(modulesDir, dir.name, file));
+          if (typeof route === "function") await route(app);
+          else if (route.default && typeof route.default === "function") await route.default(app);
+        }
+      }
+    }
+  }
+}
+
+// Register all routes before server starts
+await autoRegisterAllRoutes(app);
+
+
 // backend/src/server.ts
 async function start() {
   await registerRoutes(app);
